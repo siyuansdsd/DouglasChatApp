@@ -7,12 +7,13 @@ export default function Blog() {
     Array<{ sender: string; message: string }>
   >([]);
 
-  const user = localStorage.getItem("name") as string;
   const [input, setInput] = useState("");
   const ws = useRef<WebSocket | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  let user: string;
 
   useEffect(() => {
+    user = localStorage.getItem("name") as string;
     ws.current = new WebSocket(
       `wss://b1ev5f5h6j.execute-api.ap-southeast-2.amazonaws.com/prod?user=${user}&chatroom=1`
     );

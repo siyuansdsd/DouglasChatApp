@@ -32,8 +32,9 @@ export default function SignIn() {
           },
         }
       );
-
-      localStorage.setItem("name", name);
+      if (typeof window === "undefined") {
+        localStorage.setItem("name", name);
+      }
       console.log("Login successful:", response.data);
       router.push("/chat");
     } catch (error) {
