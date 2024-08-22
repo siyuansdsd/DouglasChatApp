@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Logo() {
   return (
-    <Link href="/chat" className="block" aria-label="Cruip">
+    <Link href="/" className="block" aria-label="Cruip">
       <svg
         className="w-8 h-8"
         viewBox="0 0 32 32"
