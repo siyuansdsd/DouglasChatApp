@@ -1,13 +1,8 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { useUser } from "@/app/context";
 
 export default function Blog() {
-  const useU = useUser();
-  if (!useU) {
-    throw new Error("You forgot to use UserProvider");
-  }
   const [messages, setMessages] = useState<
     Array<{ sender: string; message: string }>
   >([]);
@@ -15,11 +10,12 @@ export default function Blog() {
   const [input, setInput] = useState("");
   const ws = useRef<WebSocket | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  let user: string;
+  const user =
+    typeof window !== "undefined"
+      ? sessionStorage.getItem("user") || "Anonymous"
+      : "Anonymous";
 
   useEffect(() => {
-    const { u, setU } = useU;
-    user = u as string;
     ws.current = new WebSocket(
       `wss://b1ev5f5h6j.execute-api.ap-southeast-2.amazonaws.com/prod?user=${user}&chatroom=1`
     );
