@@ -4,16 +4,21 @@ import Link from "next/link";
 import { useRouter } from "next/navigation"; // 从 next/navigation 导入
 import { useState } from "react";
 import { useEffect } from "react";
+import { useUser } from "@/app/context";
 import axios from "axios";
 
 export default function SignIn() {
   const [name, setName] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter(); // 使用 useRouter 钩子
+  const useU = useUser();
+  if (!useU) {
+    throw new Error("You forgot to use UserProvider");
+  }
+  const { u, setU } = useU;
 
   useEffect(() => {
-    // 从 localStorage 中获取持久化的用户名
-    const savedName = localStorage.getItem("name");
+    const savedName = u;
     if (savedName) {
       setName(savedName);
     }
@@ -32,9 +37,7 @@ export default function SignIn() {
           },
         }
       );
-      if (typeof window === "undefined") {
-        localStorage.setItem("name", name);
-      }
+      setU(name);
       console.log("Login successful:", response.data);
       router.push("/chat");
     } catch (error) {
