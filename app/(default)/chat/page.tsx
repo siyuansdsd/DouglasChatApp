@@ -17,7 +17,7 @@ export default function Blog() {
 
   useEffect(() => {
     ws.current = new WebSocket(
-      `wss://b1ev5f5h6j.execute-api.ap-southeast-2.amazonaws.com/prod?user=${user}&chatroom=1`
+      `wss://21st7ias6g.execute-api.ap-southeast-2.amazonaws.com/prod?user=${user}&chatroom=1`
     );
 
     ws.current.onmessage = (event) => {

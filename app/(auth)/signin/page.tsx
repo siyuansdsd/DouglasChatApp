@@ -24,20 +24,10 @@ export default function SignIn() {
     e.preventDefault();
 
     try {
-      const response = await axios.put(
-        "https://d97laggt91.execute-api.ap-southeast-2.amazonaws.com/prod/user/login",
-        { name, password: "123456789" },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
       typeof window !== "undefined" && sessionStorage.setItem("user", name);
-      console.log("Login successful:", response.data);
       router.push("/chat");
     } catch (error) {
-      setErrorMessage("Login failed. Please check your username and password.");
+      setErrorMessage("Login failed.");
       console.error("Error:", error);
     }
   };
